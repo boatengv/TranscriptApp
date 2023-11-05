@@ -21,9 +21,19 @@ public class AuthenticationServiceImpl
     }
 
     @Override
-    public int login(String email) {
+    public int login(String email, String password) {
         List<Student> student = authenticationServiceRepository.findByEmail(email);
-        log.info("The student has been = {}",student);
+
+        //if multiple users have the same email
+        if(student.size() != 1){
+            return 0;
+        }
+
+        //if login user enters the wrong password
+        if(!student.get(0).getPassword().equals(password)){
+            return -1;
+        }
+
         return student.get(0).getStudentId();
     }
 

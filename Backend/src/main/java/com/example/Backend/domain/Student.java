@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+
 import java.util.UUID;
 
+@Slf4j
 @Table(name = "student")
 @Entity
 @Getter @Setter
@@ -13,14 +17,14 @@ import java.util.UUID;
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int studentId;
     private String firstName;
     private String surname;
     private String email;
     private String password;
 
-    public Student(int studentId, String firstname, String surname, String email, String password){
-        this.studentId = studentId;
+    public Student(String firstname, String surname, String email, String password){
         this.firstName = firstname;
         this.surname = surname;
         this.email = email;
